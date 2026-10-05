@@ -1,0 +1,18 @@
+{
+  "name": "der-subset-service",
+  "version": "1.0.0",
+  "description": "ASN.1 DER 子集解析与规范编码核验后端",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "fixtures": "npm run build && node --disable-warning=ExperimentalWarning dist/scripts/make-fixtures.js",
+    "test": "npm run build && node --disable-warning=ExperimentalWarning --test \"dist/test/*.test.js\"",
+    "start": "npm run build && node --disable-warning=ExperimentalWarning dist/src/server.js",
+    "cli": "npm run build && node --disable-warning=ExperimentalWarning dist/src/cli.js",
+    "demo": "npm run build && node --disable-warning=ExperimentalWarning scripts/demo.js"
+  },
+  "devDependencies": {
+    "@types/node": "*",
+    "typescript": "*"
+  }
+}
