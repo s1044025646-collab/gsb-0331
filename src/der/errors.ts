@@ -1,0 +1,59 @@
+export const ErrorCode = {
+  EMPTY_INPUT: 'EMPTY_INPUT',
+  INPUT_TOO_LARGE: 'INPUT_TOO_LARGE',
+  TRUNCATED: 'TRUNCATED',
+  UNSUPPORTED_TAG: 'UNSUPPORTED_TAG',
+  BAD_CONSTRUCTED_BIT: 'BAD_CONSTRUCTED_BIT',
+  NON_MINIMAL_LENGTH: 'NON_MINIMAL_LENGTH',
+  INDEFINITE_LENGTH: 'INDEFINITE_LENGTH',
+  CHILD_EXCEEDS_CONTAINER: 'CHILD_EXCEEDS_CONTAINER',
+  CONTAINER_NOT_FULLY_OCCUPIED: 'CONTAINER_NOT_FULLY_OCCUPIED',
+  TRAILING_BYTES: 'TRAILING_BYTES',
+  NESTING_TOO_DEEP: 'NESTING_TOO_DEEP',
+  INTEGER_EMPTY: 'INTEGER_EMPTY',
+  INTEGER_NON_MINIMAL: 'INTEGER_NON_MINIMAL',
+  BOOLEAN_BAD_LENGTH: 'BOOLEAN_BAD_LENGTH',
+  BOOLEAN_BAD_VALUE: 'BOOLEAN_BAD_VALUE',
+  NULL_BAD_LENGTH: 'NULL_BAD_LENGTH',
+  BITSTRING_EMPTY: 'BITSTRING_EMPTY',
+  BITSTRING_UNUSED_BITS_RANGE: 'BITSTRING_UNUSED_BITS_RANGE',
+  BITSTRING_UNUSED_BITS_NONZERO: 'BITSTRING_UNUSED_BITS_NONZERO',
+  BITSTRING_UNUSED_BITS_SINGLE_ZERO: 'BITSTRING_UNUSED_BITS_SINGLE_ZERO',
+  UTF8_INVALID: 'UTF8_INVALID',
+  OID_EMPTY: 'OID_EMPTY',
+  OID_UNTERMINATED: 'OID_UNTERMINATED',
+  OID_NON_MINIMAL: 'OID_NON_MINIMAL',
+  OID_FIRST_COMPONENT: 'OID_FIRST_COMPONENT',
+  OID_ENCODE_INVALID: 'OID_ENCODE_INVALID',
+  PATH_NOT_FOUND: 'PATH_NOT_FOUND',
+  NOT_FOUND: 'NOT_FOUND',
+  INVALID_HEX: 'INVALID_HEX',
+  INVALID_ARGUMENT: 'INVALID_ARGUMENT',
+} as const;
+
+export type ErrorCodeValue = (typeof ErrorCode)[keyof typeof ErrorCode];
+
+export interface ParentRange {
+  path: string;
+  start: number;
+  end: number;
+}
+
+export class DerError extends Error {
+  readonly code: ErrorCodeValue;
+  readonly offset: number;
+  readonly parent: ParentRange | null;
+
+  constructor(
+    code: ErrorCodeValue,
+    message: string,
+    offset: number,
+    parent: ParentRange | null = null,
+  ) {
+    super(message);
+    this.name = 'DerError';
+    this.code = code;
+    this.offset = offset;
+    this.parent = parent;
+  }
+}

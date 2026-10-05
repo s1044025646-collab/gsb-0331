@@ -1,0 +1,23 @@
+{
+  "name": "asn1-der-check",
+  "version": "1.0.0",
+  "description": "离线 ASN.1 DER 子集解析与规范编码核验后端（仅 API 与 CLI）",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "bin": {
+    "dercheck": "dist/src/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test --test-reporter=spec \"dist/tests/*.test.js\"",
+    "start": "node dist/src/cli.js serve",
+    "fixtures": "node dist/scripts/fixtures.js",
+    "demo": "node dist/scripts/demo.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}
